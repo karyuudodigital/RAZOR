@@ -1,0 +1,206 @@
+﻿<Window x:Name="Window" x:Class="SimpleLoadOrderOrganizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleLoadOrderOrganizer"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MinHeight="350" MinWidth="400"
+        Title="RAZOR" Height="665" Width="789"  Loaded="Window_Loaded">
+
+
+    <Window.Resources>
+        <Style x:Key="BackgroundStyle" TargetType="Grid">
+            <Setter Property="Background" Value="Black"/>
+        </Style>
+        <Style x:Key="SectionStyle" TargetType="Grid">
+            <Setter Property="Background" Value="#222222"/>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="CheckboxStyle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="WindowStyle" TargetType="Window">
+
+        </Style>
+        <Style x:Key="ListviewStyle" TargetType="ListView">
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Background" Value="#222222"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Border CornerRadius="20"
+            Background="Black"
+         
+            BorderThickness="2"
+            Padding="10">
+
+        <!-- STYLES -->
+
+
+
+        <Grid Style="{StaticResource BackgroundStyle}" Margin="0,-2,0,0">
+
+            <!-- Custom Title Bar -->
+            <Grid Background="black" Grid.Row="0" Margin="0,0,0,606">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="RAZOR" 
+                           VerticalAlignment="Center" 
+                           Margin="10,0"
+                           Foreground="White"
+                           FontWeight="Bold"/>
+
+                <!-- Minimize -->
+                <Button Grid.Column="1" Content="—" Width="40" Height="30"
+                        Background="Transparent" Foreground="White" BorderThickness="0"
+                        Click="Minimize_Click"/>
+
+                <!-- Maximize -->
+                <Button Grid.Column="2" Content="▢" Width="40" Height="30"
+                        Background="Transparent" Foreground="White" BorderThickness="0"
+                        Click="Maximize_Click"/>
+
+                <!-- Close -->
+                <Button Grid.Column="3" Content="✕" Width="40" Height="30"
+                        Background="Transparent" Foreground="White" BorderThickness="0"
+                        Click="Close_Click"/>
+            </Grid>
+
+            <Border CornerRadius="20"
+    Background="#222222"
+     
+    BorderThickness="2"
+    Padding="10" Margin="10,37,10,438">
+
+                <Grid Style="{StaticResource SectionStyle}" Height="148" VerticalAlignment="Center" Margin="10,0,10,0">
+
+                    <Label x:Name="gameFolderLabel" Style="{StaticResource LabelStyle}" Content="Folder" HorizontalAlignment="Left" Margin="7,39,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="pluginLabel" Style="{StaticResource LabelStyle}" Content="&#xD;&#xA;Config File" HorizontalAlignment="Left" Margin="7,53,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="gameFolderBox" IsReadOnly="True" Text="{Binding GameFolder, Mode=TwoWay}" Margin="99,44,38,0"  TextWrapping="Wrap" VerticalAlignment="Top" Height="18" ToolTip="Displays game directory"/>
+                    <TextBox x:Name="pluginsTextBox" IsReadOnly="True" Text="{Binding ConfigFolder, Mode=TwoWay}" Margin="99,74,38,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" ToolTip="Displays the directory for plugins.txt (or Morrowind.ini)"/>
+                    <ComboBox x:Name="game" Margin="10,10,10,0" VerticalAlignment="Top" SelectedIndex="3" >
+                        <ComboBoxItem Content="The Elder Scrolls III: Morrowind"/>
+                        <ComboBoxItem Content="The Elder Scrolls IV: Oblivion"/>
+                        <ComboBoxItem Content="The Elder Scrolls V: Skyrim"/>
+                        <ComboBoxItem Content="The Elder Scrolls V: Skyrim – Special Edition"/>
+                        <ComboBoxItem Content="Fallout 3"/>
+                        <ComboBoxItem Content="Fallout: New Vegas"/>
+                        <ComboBoxItem Content="Fallout 4"/>
+                    </ComboBox>
+                    <Button x:Name="gameFolderButton" Content=". . ." Margin="0,44,10,0" VerticalAlignment="Top" Height="18" HorizontalAlignment="Right" Width="23" Click="GameFolderButton_Click" ToolTip="Changes game directory"/>
+                    <Button x:Name="pluginFolderButton" Content=". . ." Margin="0,74,10,0" VerticalAlignment="Top" Height="18" HorizontalAlignment="Right" Width="23" Click="PluginFolderButton_Click" ToolTip="Changes plugin config file directory (file is named Morrowind.ini for Morrowind, plugins.txt for all other modern Elder Scrolls and Fallout games)"/>
+                    <CheckBox Style="{StaticResource CheckboxStyle}" x:Name="editMasters" IsChecked="{Binding EditMaster, Mode=TwoWay}" Content="Edit masters" HorizontalAlignment="Left" Margin="12,104,0,0" VerticalAlignment="Top" >
+                        <CheckBox.ToolTip>
+                            <TextBlock>
+              If checked, allows master plugins to be enabled/disabled
+           <LineBreak/> 
+              NOTE: SOME FILES WILL ALWAYS BE LOADED IN A SPECIFIC ORDER IF PRESENT, IF THESE FILES ARE 
+           <LineBreak/>
+              DISABLED THEY WILL AUTOMATICALLY BE ENABLED AND REORDERED THE NEXT TIME PLUGINS ARE LOADED
+                            </TextBlock>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
+                    <CheckBox x:Name="conflictCheckBox" Style="{StaticResource CheckboxStyle}"  IsChecked="{Binding ConflictCheck, Mode=TwoWay}" Content="Check for conflicts" HorizontalAlignment="Left" Margin="110,104,0,0" VerticalAlignment="Top" ToolTip="After initially loading plugins, program will check each plugin and display what other plugins overlap with it" Checked="ConflictCheckBox_Checked"/>
+                    <Label x:Name="progressLabel" Style="{StaticResource LabelStyle}" Content="Created by George S." HorizontalAlignment="Left" Margin="10,0,0,8" Width="343"  VerticalAlignment="Bottom"/>
+                    <ProgressBar Minimum="0" Maximum="1.0" x:Name="loadingBar" Margin="358,0,10,8"  VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
+                        <ProgressBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ProgressBar.RenderTransform>
+                    </ProgressBar>
+                    <Label x:Name="warningLabel" Content="Please enter valid paths for the game folder and the plugin&#xD;&#xA;config file. The plugin config file is usually called &quot;plugins.txt&quot; &#xD;&#xA;and is located in the local folder in the AppData directory. &#xD;&#xA;(In Morrowind's case, active plugins are recorded in &#xD;&#xA;Morrowind.ini in the game directory)" Margin="0,211,0,0" Height="384" Width="763" RenderTransformOrigin="0.506,0.053" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Right" Margin="0,103,10,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="40"/>
+
+
+
+                </Grid>
+
+            </Border>
+
+            <Border CornerRadius="20"
+                Background="#222222"
+     
+                BorderThickness="2"
+                Padding="10" Margin="10,226,10,0">
+
+                <ListView x:Name="pluginsBox" Style="{StaticResource ListviewStyle}" ItemsSource="{Binding LoadOrder, Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="-2,-2,-2,-2" Drop="PluginsBox_Drop">
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn  Header="Name" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <CheckBox Content="{Binding PluginFilename}" IsChecked="{Binding IsActive}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
+                                                <CheckBox.Style>
+
+                                                    <Style TargetType="CheckBox">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsMaster}" Value="True">
+                                                                <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=editMasters}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding IsMaster}" Header="Master" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding IsLight}" Header="Light Plugin" Width="75"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OverrideRecords}" Header="Override Records" Width="100"/>
+                            <GridViewColumn  Header="Masters" Width="100" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                <TextBlock Text="{Binding MastersString}" />
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn  Header="Conflicts" Width="105" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                <TextBlock Text="{Binding Conflicts}" />
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+
+
+            </Border>
+
+        </Grid>
+
+    </Border>
+
+</Window>
+   
