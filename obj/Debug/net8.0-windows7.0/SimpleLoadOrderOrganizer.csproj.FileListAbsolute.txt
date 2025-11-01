@@ -31,8 +31,10 @@ C:\Users\Hunter\Documents\GitHub\RAZOR\bin\Debug\net8.0-windows7.0\GongSolutions
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\SimpleLoadOrderOrganizer.csproj.AssemblyReference.cache
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\MainWindow.g.cs
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\App.g.cs
+C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\GeneratedInternalTypeHelper.g.cs
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\SimpleLoadOrderOrganizer_MarkupCompile.cache
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\SimpleLoadOrderOrganizer_MarkupCompile.lref
+C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\App.baml
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\MainWindow.baml
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\SimpleLoadOrderOrganizer.g.resources
 C:\Users\Hunter\Documents\GitHub\RAZOR\obj\Debug\net8.0-windows7.0\SimpleLoadOrderOrganizer.GeneratedMSBuildEditorConfig.editorconfig

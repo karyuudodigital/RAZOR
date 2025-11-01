@@ -185,6 +185,19 @@ namespace SimpleLoadOrderOrganizer
         /// This constructor performs native interop and JSON deserialization and is intended to run
         /// on a background thread (see Game.LoadPlugins).
         /// </summary>
+        /// 
+
+        //DEFAULT CONSTRCUTOR FOR TESTING PURPOSES ONLY
+
+        public Plugin()
+        {
+            this.Masters = [];
+            this.IsMaster = true;
+            this.IsLight = false;
+            this.OverrideRecords = 400;
+            this.PluginFilename = "testing";
+        }
+
         public Plugin(string path, Int32 game) {
 
 

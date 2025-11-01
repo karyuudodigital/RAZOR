@@ -10,29 +10,275 @@
         AllowsTransparency="True"
         Background="Transparent"
         MinHeight="350" MinWidth="400"
-        Title="RAZOR" Height="665" Width="789"  Loaded="Window_Loaded">
+        Title="RAZOR" Height="700" Width="789"  Loaded="Window_Loaded">
 
 
     <Window.Resources>
+
+
         <Style x:Key="BackgroundStyle" TargetType="Grid">
             <Setter Property="Background" Value="Black"/>
         </Style>
         <Style x:Key="SectionStyle" TargetType="Grid">
-            <Setter Property="Background" Value="#222222"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <!-- left, top, right, bottom -->
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                                Padding="0,0,0,3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#444"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#66CCFF"/>
+                            </Trigger>
+                            <!-- Pressed -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#222"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00AACC"/>
+                            </Trigger>
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="white"/>
+            <Setter Property="Opacity" Value="1"/>
+
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border 
+                    CornerRadius="5"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BannerStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="30"/>
+
+            <Setter Property="FontFamily" Value="pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Magic Cards"/>
+
         </Style>
         <Style x:Key="CheckboxStyle" TargetType="CheckBox">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <!-- Custom checkbox box -->
+                            <Border x:Name="Border"
+                            Width="18" Height="18"
+                            CornerRadius="4"
+                            Background="#111111"
+                            BorderBrush="White"
+                            BorderThickness="0"
+                            Margin="0,0,6,0">
+                                <!-- The check mark -->
+                                <Path x:Name="CheckMark"
+                              Data="M2,6 L7,11 L14,3"
+                              Stroke="White"
+                              StrokeThickness="2"
+                              StrokeEndLineCap="Round"
+                              StrokeStartLineCap="Round"
+                              Visibility="Collapsed"/>
+                            </Border>
+
+                            <!-- The label text -->
+                            <ContentPresenter VerticalAlignment="Center"
+                                      RecognizesAccessKey="True"/>
+                        </StackPanel>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Checked -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                            </Trigger>
+
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#66CCFF"/>
+                            </Trigger>
+
+                            <!-- Pressed -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#222"/>
+                            </Trigger>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                                <Setter Property="Foreground" Value="#777"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
         <Style x:Key="WindowStyle" TargetType="Window">
 
         </Style>
         <Style x:Key="ListviewStyle" TargetType="ListView">
             <Setter Property="Foreground" Value="white"/>
-            <Setter Property="Background" Value="#222222"/>
+
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+
+
         </Style>
+
+        <Style x:Key="GridHeader" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <TextBlock Text="{TemplateBinding Content}" Padding="5" Width="{TemplateBinding Width}" TextAlignment="Right" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border CornerRadius="5,0,0,5"
+                            BorderThickness="1,1,0,1"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border 
+                        Background="White" 
+                        x:Name="border" 
+                        CornerRadius="0,5,5,0" 
+                        BorderThickness="0,1,1,1"
+                        BorderBrush="Black">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style  x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="18"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="PART_EditableTextBox"
+                             Style="{StaticResource ComboBoxTextBoxStyle}"
+                             Padding="5,0,0,0"
+                             Height="{TemplateBinding Height}"/>
+                            <ToggleButton Grid.Column="1" Margin="0"
+                            Height="{TemplateBinding Height}"
+                            Style="{StaticResource ComboBoxButtonStyle}"
+                            Focusable="False"
+                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                                <Path Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="DodgerBlue" />
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="5,0,0,0"/>
+                            <Popup Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                SnapsToDevicePixels="True"                
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                    x:Name="DropDownBorder"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Background="Azure"
+                                    BorderBrush="Black"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
     </Window.Resources>
 
@@ -40,16 +286,20 @@
             Background="Black"
          
             BorderThickness="2"
-            Padding="10">
+            Padding="10" Margin="0,63,0,0">
 
         <!-- STYLES -->
 
 
 
         <Grid Style="{StaticResource BackgroundStyle}" Margin="0,-2,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="185*"/>
+                <RowDefinition Height="312*"/>
+            </Grid.RowDefinitions>
 
             <!-- Custom Title Bar -->
-            <Grid Background="black" Grid.Row="0" Margin="0,0,0,606">
+            <Grid Background="black" Grid.Row="0" Margin="0,0,0,113">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
@@ -58,145 +308,261 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="RAZOR" 
-                           VerticalAlignment="Center" 
-                           Margin="10,0"
+                           VerticalAlignment="Top" 
+                           Margin="10,10,10,0"
                            Foreground="White"
                            FontWeight="Bold"/>
 
                 <!-- Minimize -->
-                <Button Grid.Column="1" Content="—" Width="40" Height="30"
+                <Button Grid.Column="1" Content="—" Width="40" Height="27"
                         Background="Transparent" Foreground="White" BorderThickness="0"
-                        Click="Minimize_Click"/>
+                        Click="Minimize_Click" VerticalAlignment="Top"/>
 
                 <!-- Maximize -->
-                <Button Grid.Column="2" Content="▢" Width="40" Height="30"
+                <Button Grid.Column="2" Content="▢" Width="40"
                         Background="Transparent" Foreground="White" BorderThickness="0"
-                        Click="Maximize_Click"/>
+                        Click="Maximize_Click" Height="27" VerticalAlignment="Top"/>
 
                 <!-- Close -->
-                <Button Grid.Column="3" Content="✕" Width="40" Height="30"
+                <Button Grid.Column="3" Content="✕" Width="40"
                         Background="Transparent" Foreground="White" BorderThickness="0"
-                        Click="Close_Click"/>
+                        Click="Close_Click" Height="27" VerticalAlignment="Top"/>
+
+
+
+
             </Grid>
 
-            <Border CornerRadius="20"
-    Background="#222222"
+
+
+            <Border CornerRadius="10"
+        Background="#222222" Margin="10,96,10,356" Grid.RowSpan="2"
+        >
+                <Border CornerRadius="10"
      
-    BorderThickness="2"
-    Padding="10" Margin="10,37,10,438">
+    BorderThickness="2" Margin="-2,-2,-2,-2"
+    >
 
-                <Grid Style="{StaticResource SectionStyle}" Height="148" VerticalAlignment="Center" Margin="10,0,10,0">
+                    <Border.Background>
+                        <!-- Faded background image -->
+                        <ImageBrush ImageSource="/assets/images/top.png" 
+                        Opacity="1"
+                        Stretch="UniformToFill"/>
+                    </Border.Background>
 
-                    <Label x:Name="gameFolderLabel" Style="{StaticResource LabelStyle}" Content="Folder" HorizontalAlignment="Left" Margin="7,39,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="pluginLabel" Style="{StaticResource LabelStyle}" Content="&#xD;&#xA;Config File" HorizontalAlignment="Left" Margin="7,53,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="gameFolderBox" IsReadOnly="True" Text="{Binding GameFolder, Mode=TwoWay}" Margin="99,44,38,0"  TextWrapping="Wrap" VerticalAlignment="Top" Height="18" ToolTip="Displays game directory"/>
-                    <TextBox x:Name="pluginsTextBox" IsReadOnly="True" Text="{Binding ConfigFolder, Mode=TwoWay}" Margin="99,74,38,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" ToolTip="Displays the directory for plugins.txt (or Morrowind.ini)"/>
-                    <ComboBox x:Name="game" Margin="10,10,10,0" VerticalAlignment="Top" SelectedIndex="3" >
-                        <ComboBoxItem Content="The Elder Scrolls III: Morrowind"/>
-                        <ComboBoxItem Content="The Elder Scrolls IV: Oblivion"/>
-                        <ComboBoxItem Content="The Elder Scrolls V: Skyrim"/>
-                        <ComboBoxItem Content="The Elder Scrolls V: Skyrim – Special Edition"/>
-                        <ComboBoxItem Content="Fallout 3"/>
-                        <ComboBoxItem Content="Fallout: New Vegas"/>
-                        <ComboBoxItem Content="Fallout 4"/>
-                    </ComboBox>
-                    <Button x:Name="gameFolderButton" Content=". . ." Margin="0,44,10,0" VerticalAlignment="Top" Height="18" HorizontalAlignment="Right" Width="23" Click="GameFolderButton_Click" ToolTip="Changes game directory"/>
-                    <Button x:Name="pluginFolderButton" Content=". . ." Margin="0,74,10,0" VerticalAlignment="Top" Height="18" HorizontalAlignment="Right" Width="23" Click="PluginFolderButton_Click" ToolTip="Changes plugin config file directory (file is named Morrowind.ini for Morrowind, plugins.txt for all other modern Elder Scrolls and Fallout games)"/>
-                    <CheckBox Style="{StaticResource CheckboxStyle}" x:Name="editMasters" IsChecked="{Binding EditMaster, Mode=TwoWay}" Content="Edit masters" HorizontalAlignment="Left" Margin="12,104,0,0" VerticalAlignment="Top" >
-                        <CheckBox.ToolTip>
-                            <TextBlock>
+                    <Grid Style="{StaticResource SectionStyle}" Height="148" VerticalAlignment="Center" Margin="10,0,10,0">
+
+                        <Label x:Name="gameFolderLabel" Style="{StaticResource LabelStyle}" Content="Folder" HorizontalAlignment="Left" Margin="7,42,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="pluginLabel" Style="{StaticResource LabelStyle}" Content="&#xD;&#xA;Config File" HorizontalAlignment="Left" Margin="7,58,0,0" VerticalAlignment="Top" Height="38"/>
+                        <TextBox x:Name="gameFolderBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding GameFolder, Mode=TwoWay}" Margin="99,44,10,0"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" ToolTip="Displays game directory"  PreviewMouseDown="gameFolderBox_PreviewMouseDown"/>
+                        <TextBox x:Name="pluginsTextBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding ConfigFolder, Mode=TwoWay}" Margin="99,73,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" ToolTip="Displays the directory for plugins.txt (or Morrowind.ini)" PreviewMouseDown="pluginsTextBox_PreviewMouseDown"/>
+                        <ComboBox x:Name="game" Style="{StaticResource ComboBoxStyle}"  Margin="10,10,10,0" VerticalAlignment="Top" SelectedIndex="3" Height="27" >
+                            <ComboBoxItem Content="The Elder Scrolls III: Morrowind"/>
+                            <ComboBoxItem Content="The Elder Scrolls IV: Oblivion"/>
+                            <ComboBoxItem Content="The Elder Scrolls V: Skyrim"/>
+                            <ComboBoxItem Content="The Elder Scrolls V: Skyrim – Special Edition"/>
+                            <ComboBoxItem Content="Fallout 3"/>
+                            <ComboBoxItem Content="Fallout: New Vegas"/>
+                            <ComboBoxItem Content="Fallout 4"/>
+                        </ComboBox>
+                        <CheckBox Style="{StaticResource CheckboxStyle}" x:Name="editMasters" IsChecked="{Binding EditMaster, Mode=TwoWay}" Content="Edit masters" HorizontalAlignment="Left" Margin="12,104,0,0" VerticalAlignment="Top" >
+                            <CheckBox.ToolTip>
+                                <TextBlock>
               If checked, allows master plugins to be enabled/disabled
            <LineBreak/> 
               NOTE: SOME FILES WILL ALWAYS BE LOADED IN A SPECIFIC ORDER IF PRESENT, IF THESE FILES ARE 
            <LineBreak/>
               DISABLED THEY WILL AUTOMATICALLY BE ENABLED AND REORDERED THE NEXT TIME PLUGINS ARE LOADED
-                            </TextBlock>
-                        </CheckBox.ToolTip>
-                    </CheckBox>
-                    <CheckBox x:Name="conflictCheckBox" Style="{StaticResource CheckboxStyle}"  IsChecked="{Binding ConflictCheck, Mode=TwoWay}" Content="Check for conflicts" HorizontalAlignment="Left" Margin="110,104,0,0" VerticalAlignment="Top" ToolTip="After initially loading plugins, program will check each plugin and display what other plugins overlap with it" Checked="ConflictCheckBox_Checked"/>
-                    <Label x:Name="progressLabel" Style="{StaticResource LabelStyle}" Content="Created by George S." HorizontalAlignment="Left" Margin="10,0,0,8" Width="343"  VerticalAlignment="Bottom"/>
-                    <ProgressBar Minimum="0" Maximum="1.0" x:Name="loadingBar" Margin="358,0,10,8"  VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
-                        <ProgressBar.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ProgressBar.RenderTransform>
-                    </ProgressBar>
-                    <Label x:Name="warningLabel" Content="Please enter valid paths for the game folder and the plugin&#xD;&#xA;config file. The plugin config file is usually called &quot;plugins.txt&quot; &#xD;&#xA;and is located in the local folder in the AppData directory. &#xD;&#xA;(In Morrowind's case, active plugins are recorded in &#xD;&#xA;Morrowind.ini in the game directory)" Margin="0,211,0,0" Height="384" Width="763" RenderTransformOrigin="0.506,0.053" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Right" Margin="0,103,10,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="40"/>
+                                </TextBlock>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                        <CheckBox x:Name="conflictCheckBox" Style="{StaticResource CheckboxStyle}"  IsChecked="{Binding ConflictCheck, Mode=TwoWay}" Content="Check for conflicts" HorizontalAlignment="Left" Margin="12,128,0,0" VerticalAlignment="Top" ToolTip="After initially loading plugins, program will check each plugin and display what other plugins overlap with it" Checked="ConflictCheckBox_Checked"/>
+
+                        <Label x:Name="warningLabel" Content="Please enter valid paths for the game folder and the plugin&#xD;&#xA;config file. The plugin config file is usually called &quot;plugins.txt&quot; &#xD;&#xA;and is located in the local folder in the AppData directory. &#xD;&#xA;(In Morrowind's case, active plugins are recorded in &#xD;&#xA;Morrowind.ini in the game directory)" Margin="0,211,0,0" Height="384" Width="763" RenderTransformOrigin="0.506,0.053" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Button x:Name="saveButton" Style="{StaticResource ButtonStyle}" Content="Save" HorizontalAlignment="Right" Margin="0,121,87,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="59" Height="22"/>
+                        <Button x:Name="playButton" Style="{StaticResource ButtonStyle}" Content="&#9654; Play" HorizontalAlignment="Right" Margin="0,121,10,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="59" Height="22"/>
 
 
 
-                </Grid>
+                    </Grid>
+
+                </Border>
 
             </Border>
 
-            <Border CornerRadius="20"
-                Background="#222222"
+            <Border CornerRadius="10"
+                    Background="#222222" Margin="10,56,10,47" Grid.Row="1"
+                    >
+
+
+                <Border CornerRadius="10"
      
-                BorderThickness="2"
-                Padding="10" Margin="10,226,10,0">
+                BorderThickness="2" Margin="-2,-2,-2,-2">
 
-                <ListView x:Name="pluginsBox" Style="{StaticResource ListviewStyle}" ItemsSource="{Binding LoadOrder, Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="-2,-2,-2,-2" Drop="PluginsBox_Drop">
+                    <Border.Background>
+                        <!-- Faded background image -->
+                        <ImageBrush ImageSource="/assets/images/skyrimList.png" 
+                    Opacity="1"
+                    Stretch="UniformToFill"/>
+                    </Border.Background>
 
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn  Header="Name" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <CheckBox Content="{Binding PluginFilename}" IsChecked="{Binding IsActive}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
-                                                <CheckBox.Style>
+                    <!-- ItemsSource="{Binding LoadOrder, Mode=TwoWay}" -->
+                    <ListView x:Name="pluginsBox" Style="{StaticResource ListviewStyle}"  dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="-2,-2,-2,-12" Drop="PluginsBox_Drop" >
 
-                                                    <Style TargetType="CheckBox">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsMaster}" Value="True">
-                                                                <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=editMasters}"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </CheckBox.Style>
-                                            </CheckBox>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding IsMaster}" Header="Master" Width="50"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding IsLight}" Header="Light Plugin" Width="75"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OverrideRecords}" Header="Override Records" Width="100"/>
-                            <GridViewColumn  Header="Masters" Width="100" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
-                                                <TextBlock Text="{Binding MastersString}" />
-                                            </ScrollViewer>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn  Header="Conflicts" Width="105" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
-                                                <TextBlock Text="{Binding Conflicts}" />
-                                            </ScrollViewer>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <ListView.ItemsSource>
+                            <x:Array Type="local:Plugin">
+                                <local:Plugin PluginFilename="Skyrim.esm" IsMaster="True" IsLight="False" OverrideRecords="12000" />
+                                <local:Plugin PluginFilename="Dawnguard.esm" IsMaster="True" IsLight="False" OverrideRecords="9500" />
+                                <local:Plugin PluginFilename="MyCustomPatch.esp" IsMaster="False" IsLight="False" OverrideRecords="300" />
+                            </x:Array>
+                        </ListView.ItemsSource>
 
-                        </GridView>
-                    </ListView.View>
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
 
-                </ListView>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="BorderBrush" Value="#40FFFFFF"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
 
+                            </Style>
+                        </ListView.Resources>
+
+                        <ListView.View>
+                            <GridView  ColumnHeaderContainerStyle="{StaticResource GridHeader}">
+                                <GridViewColumn  Header="Name" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <CheckBox Content="{Binding PluginFilename}" IsChecked="{Binding IsActive}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
+                                                    <CheckBox.Style>
+
+                                                        <Style TargetType="CheckBox">
+
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                            <Setter Property="FontSize" Value="14"/>
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="CheckBox">
+                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                                            <!-- Custom checkbox box -->
+                                                                            <Border x:Name="Border"
+                Width="18" Height="18"
+                CornerRadius="4"
+                Background="#111111"
+                BorderBrush="White"
+                BorderThickness="0"
+                Margin="0,0,6,0">
+                                                                                <!-- The check mark -->
+                                                                                <Path x:Name="CheckMark"
+                  Data="M2,6 L7,11 L14,3"
+                  Stroke="White"
+                  StrokeThickness="2"
+                  StrokeEndLineCap="Round"
+                  StrokeStartLineCap="Round"
+                  Visibility="Collapsed"/>
+                                                                            </Border>
+
+                                                                            <!-- The label text -->
+                                                                            <ContentPresenter VerticalAlignment="Center"
+                          RecognizesAccessKey="True"/>
+                                                                        </StackPanel>
+
+                                                                        <ControlTemplate.Triggers>
+                                                                            <!-- Checked -->
+                                                                            <Trigger Property="IsChecked" Value="True">
+                                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                                                                            </Trigger>
+
+                                                                            <!-- Hover -->
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#66CCFF"/>
+                                                                            </Trigger>
+
+                                                                            <!-- Pressed -->
+                                                                            <Trigger Property="IsPressed" Value="True">
+                                                                                <Setter TargetName="Border" Property="Background" Value="#222"/>
+                                                                            </Trigger>
+
+                                                                            <!-- Disabled -->
+                                                                            <Trigger Property="IsEnabled" Value="False">
+                                                                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                                                                                <Setter Property="Foreground" Value="#777"/>
+                                                                            </Trigger>
+                                                                        </ControlTemplate.Triggers>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Setter Property="Margin" Value="15,15"/>
+
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsMaster}" Value="True">
+                                                                    <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=editMasters}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </CheckBox.Style>
+                                                </CheckBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding IsMaster}" Header="Master" Width="50"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding IsLight}" Header="Light Plugin" Width="75"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding OverrideRecords}" Header="Override Records" Width="100"/>
+                                <GridViewColumn  Header="Masters" Width="100" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                    <TextBlock Text="{Binding MastersString}" />
+                                                </ScrollViewer>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn  Header="Conflicts" Width="105" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                    <TextBlock Text="{Binding Conflicts}" />
+                                                </ScrollViewer>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+
+
+                </Border>
 
             </Border>
+
+            <Label x:Name="Banner" Style="{StaticResource BannerStyle}" Content="The-Elder-Scrolls-III:-Morrowind" HorizontalAlignment="Center" Margin="0,31,0,0" Width="451"  VerticalAlignment="Top" />
+
+
+            <Label x:Name="progressLabel" Style="{StaticResource LabelStyle}" Content="Karyuudo Digital 2025" HorizontalAlignment="Left" Margin="10,0,0,8" Width="343"  VerticalAlignment="Bottom" Grid.Row="1" />
+            <ProgressBar Minimum="0" Maximum="1.0" x:Name="loadingBar" Margin="182,0,10,5"  VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Grid.Row="1" >
+                <ProgressBar.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+
 
         </Grid>
 

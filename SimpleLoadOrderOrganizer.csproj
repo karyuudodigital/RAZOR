@@ -11,9 +11,57 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\fonts\Inter.ttc" />
+    <None Remove="assets\fonts\InterVariable.ttf" />
+    <None Remove="assets\fonts\Kingthings Petrock light.ttf" />
+    <None Remove="assets\fonts\Kingthings Petrock.ttf" />
+    <None Remove="assets\fonts\MagicCardsNormal.ttf" />
+    <None Remove="assets\fonts\TrajanusBricks.ttf" />
+    <None Remove="assets\fonts\TrajanusBricksXtra.ttf" />
+    <None Remove="assets\fonts\TrajanusBriX-Invers.ttf" />
+    <None Remove="assets\images\skyrimList.png" />
+    <None Remove="assets\images\top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\fonts\Inter.ttc">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\InterVariable.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\Kingthings Petrock light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\Kingthings Petrock.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\MagicCardsNormal.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\TrajanusBricks.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\TrajanusBricksXtra.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\fonts\TrajanusBriX-Invers.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\skyrimList.png" />
+    <Resource Include="assets\images\top.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="assets\icons\" />
   </ItemGroup>
 
 </Project>

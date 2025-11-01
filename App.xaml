@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:SimpleLoadOrderOrganizer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+
+        <!-- Embedded font references -->
+        <FontFamily x:Key="base">
+            pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Inter
+        </FontFamily>
+
+
+
+    
     </Application.Resources>
 </Application>

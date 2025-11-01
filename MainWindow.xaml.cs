@@ -355,7 +355,7 @@ namespace SimpleLoadOrderOrganizer
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e) { games.gamesList[game.SelectedIndex].WasChanged = true; } // when plugin is disabled
 
         //GAME FOLDER BUTTON
-        private void GameFolderButton_Click(object sender, RoutedEventArgs e)
+        private void gameFolderBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             string expectedFile = game.SelectedIndex == 0 ? "Data Files" : "Data";
 
@@ -372,7 +372,7 @@ namespace SimpleLoadOrderOrganizer
 
 
         //PLUGIN CONFIG FOLDER BUTTTON
-        private void PluginFolderButton_Click(object sender, RoutedEventArgs e)
+        private void pluginsTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             string expectedFile = games.GameID != 0 ? "plugins.txt" : "morrowind.ini";
 
@@ -426,7 +426,7 @@ namespace SimpleLoadOrderOrganizer
 
 
             {
-        game, saveButton, gameFolderButton, pluginFolderButton,
+        game, saveButton, gameFolderBox, pluginsTextBox,
         editMasters, conflictCheckBox
             };
 
@@ -534,8 +534,12 @@ namespace SimpleLoadOrderOrganizer
         }
 
 
+
+
+
         #endregion
 
+      
     }
 
 }
