@@ -33,15 +33,22 @@
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Versioning;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Resx = SimpleLoadOrderOrganizer.Resources.Resources;
+
 
 namespace SimpleLoadOrderOrganizer
 {
@@ -75,7 +82,9 @@ namespace SimpleLoadOrderOrganizer
         bool conflictCheckLock = false; //prevents conflictCheck from running on combobox change
 
 
-        public MainWindow(){InitializeComponent(); }
+        public MainWindow(){
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP");  InitializeComponent(); 
+        }
 
         #endregion
 
@@ -102,7 +111,7 @@ namespace SimpleLoadOrderOrganizer
                 }
                 catch (Exception)
                 {
-                    System.Windows.Forms.MessageBox.Show("Error reading config file, creating new one...", "Error");
+                    System.Windows.Forms.MessageBox.Show($"{Resx.fileError}", $"{Resx.error}");
                     fs?.Close();
                     System.IO.File.Delete("cfg.json");
                     games = new Games();
@@ -201,7 +210,7 @@ namespace SimpleLoadOrderOrganizer
                 editMasters.IsEnabled = false;
                 conflictCheckBox.IsEnabled = false;
                 warningLabel.Visibility = Visibility.Visible;
-                progressLabel.Content = "Created by George S.";
+                progressLabel.Content = "©-2025-KARYUUDO-DIGITAL";
             }
 
         }
@@ -212,7 +221,7 @@ namespace SimpleLoadOrderOrganizer
         {
             DataContext = null;
             warningLabel.Visibility = Visibility.Hidden;
-            SetUIEnabled(false, "Loading " + games.gamesList[game.SelectedIndex].Name + " plugins...");
+            SetUIEnabled(false, $"{Resx.loadingPlugins}"); 
             _ = LoadPluginsAsync();
         }
 
@@ -226,7 +235,7 @@ namespace SimpleLoadOrderOrganizer
                 using var fs = File.Create("cfg.json");
                 serializer.WriteObject(fs, games);
             }
-            catch (Exception) { System.Windows.Forms.MessageBox.Show("Error saving config file, this may be because the file is open in another program, or that this program wasn't ran as administrator...", "Error"); }
+            catch (Exception) { System.Windows.Forms.MessageBox.Show($"{Resx.saveError}", $"{Resx.error}"); }
 
         }
 
@@ -244,17 +253,18 @@ namespace SimpleLoadOrderOrganizer
         }
 
         // Async wrapper for plugin loading
-        private async Task LoadPluginsAsync(){await RunAsyncOperation(progress => Task.Run(() => games.gamesList[index].LoadPlugins(progress)), BackgroundWorker_OnCompleted,$"Loading {games.gamesList[index].Name} plugins...");}
+        private async Task LoadPluginsAsync(){await RunAsyncOperation(progress => Task.Run(() => games.gamesList[index].LoadPlugins(progress)), BackgroundWorker_OnCompleted, $"{Resx.loadingPlugins}");} 
 
 
         // Async wrapper for conflict check
-        private async Task CheckConflictsAsync() { await RunAsyncOperation(progress => Task.Run(() => games.gamesList[index].OverlapCheck(progress)),BackgroundWorker_OnCompletedConflict, "Checking for conflicts...");}
+        private async Task CheckConflictsAsync() { await RunAsyncOperation(progress => Task.Run(() => games.gamesList[index].OverlapCheck(progress)),BackgroundWorker_OnCompletedConflict, $"{Resx.checkingForConflicts}");} 
 
 
         //WHEN COMBOBOX INDEX CHANGES
         public async void Game_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             conflictCheckLock = true;
+            RefreshDataContext(game.SelectedIndex);
             games.GameID = game.SelectedIndex;
 
 
@@ -282,7 +292,7 @@ namespace SimpleLoadOrderOrganizer
                 editMasters.IsEnabled = false;
                 conflictCheckBox.IsEnabled = false;
                 warningLabel.Visibility = Visibility.Visible;
-                progressLabel.Content = "Created by George S.";
+                progressLabel.Content = "©-2025-KARYUUDO-DIGITAL";
             }
             conflictCheckLock = false;
         }
@@ -317,7 +327,7 @@ namespace SimpleLoadOrderOrganizer
 
             if (games.gamesList[game.SelectedIndex].ConflictCheck)
             {
-                progressLabel.Content = "Checking for conflicts...";
+                progressLabel.Content = $"{Resx.checkingForConflicts}";
                 progressLabel.Visibility = Visibility.Visible;
                 loadingBar.Visibility = Visibility.Visible;
                 _ = CheckConflictsAsync();
@@ -355,16 +365,27 @@ namespace SimpleLoadOrderOrganizer
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e) { games.gamesList[game.SelectedIndex].WasChanged = true; } // when plugin is disabled
 
         //GAME FOLDER BUTTON
-        private void gameFolderBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void GameFolderBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             string expectedFile = game.SelectedIndex == 0 ? "Data Files" : "Data";
 
-            // Use your helper method
+            // Use helper method
             if (TrySelectFolder(out string? selectedPath, expectedFile, false))
             {
+
+                // Set the game folder path
                 gameFolderBox.Text = selectedPath!;
                 games.gamesList[game.SelectedIndex].GameFolder = selectedPath!;
-                LoadPlugins();
+
+                // If the game folder is already valid
+                if (File.Exists(games.gamesList[game.SelectedIndex].ConfigFolder))
+                {
+                    LoadPlugins();
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show($"{Resx.pluginConfigError}", $"{Resx.error}");
+                }
             }
 
         }
@@ -372,7 +393,7 @@ namespace SimpleLoadOrderOrganizer
 
 
         //PLUGIN CONFIG FOLDER BUTTTON
-        private void pluginsTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void PluginsTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             string expectedFile = games.GameID != 0 ? "plugins.txt" : "morrowind.ini";
 
@@ -389,7 +410,7 @@ namespace SimpleLoadOrderOrganizer
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Please enter a valid path for the game directory.", "Error");
+                    System.Windows.Forms.MessageBox.Show($"{Resx.gameDirectoryError}", $"{Resx.error}");
                 }
             }
         }
@@ -402,7 +423,7 @@ namespace SimpleLoadOrderOrganizer
             System.IO.File.Delete("cfg.json");
             SaveConfig();
 
-            MessageBoxResult dialogResult = System.Windows.MessageBox.Show("Currently active game's settings/load order will be saved. Do you want to save every games' settings/load order?", "Save", MessageBoxButton.YesNo);
+            MessageBoxResult dialogResult = System.Windows.MessageBox.Show($"{Resx.saveDialogue}", $"{Resx.save}", MessageBoxButton.YesNo);
             if (dialogResult == MessageBoxResult.Yes)
             {
                 //if a games load order was changed, saves the loadorder
@@ -413,6 +434,84 @@ namespace SimpleLoadOrderOrganizer
                 //if a games load order was changed, saves the loadorder
                 if (games.gamesList[game.SelectedIndex].WasChanged) { games.gamesList[game.SelectedIndex].WritePlugins(); }
             }
+        }
+
+        //PLAY BUTTON
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+
+           
+
+            //if valid executable path, start the game
+            String path = Path.Combine(games.gamesList[game.SelectedIndex].GameFolder!, games.gamesList[game.SelectedIndex].ExePath!);
+
+
+            if (File.Exists(path))
+            {
+
+
+                //launch exe
+                static void launch(string path)
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = path,
+                        UseShellExecute = true,  // ensures it runs independently
+                        WorkingDirectory = Path.GetDirectoryName(path)
+                    };
+                    try
+                    {
+                        Process.Start(startInfo);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show($"{Resx.failedToLaunchError} {Resx.error}: {ex.Message}", $"{Resx.error}");
+                    }
+
+                }
+
+
+                if (File.Exists(Path.Combine(games.gamesList[game.SelectedIndex].GameFolder!, games.gamesList[game.SelectedIndex].ScriptExtender!)))
+                {
+
+                    //if script extender found in gamefolder, prompt user to select it
+
+                    MessageBoxResult dialogResult = System.Windows.MessageBox.Show(string.Format(Resx.scriptExtenderPrompt, games.gamesList[game.SelectedIndex].Name), Resx.scriptExtenderDetected, MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        //update exe name to script extender
+                        games.gamesList[game.SelectedIndex].ExePath = games.gamesList[game.SelectedIndex].ScriptExtender;
+                        SaveConfig();
+                        launch(Path.Combine(games.gamesList[game.SelectedIndex].GameFolder!, games.gamesList[game.SelectedIndex].ExePath!));
+                    }
+                    else if (dialogResult == MessageBoxResult.No)
+                    {
+                        launch(path);
+                    }
+                }
+                else
+                {
+                    launch(path);
+
+                }
+
+                
+            }
+            //else show error message
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(
+                   string.Format(Resx.exeNotFound, games.gamesList[game.SelectedIndex].Name),
+                    $"{Resx.error}");
+            }
+
+
+
+
+
+
+
+
         }
 
         #endregion
@@ -427,7 +526,7 @@ namespace SimpleLoadOrderOrganizer
 
             {
         game, saveButton, gameFolderBox, pluginsTextBox,
-        editMasters, conflictCheckBox
+        editMasters, conflictCheckBox, playButton
             };
 
             foreach (var control in controls)
@@ -436,7 +535,7 @@ namespace SimpleLoadOrderOrganizer
             }
 
             loadingBar.Visibility = enabled ? Visibility.Hidden : Visibility.Visible;
-            progressLabel.Content = enabled ? "Created by George S." : progressMsg;
+            progressLabel.Content = enabled ? "©-2025-KARYUUDO-DIGITAL" : progressMsg;
         }
 
 
@@ -481,8 +580,8 @@ namespace SimpleLoadOrderOrganizer
                 }
 
                 System.Windows.Forms.MessageBox.Show(
-                    $"Could not find {expectedFile}, please choose the correct file.",
-                    "Error");
+                    string.Format(Resx.correctFileNotFound, expectedFile),
+                    $"{Resx.error}");
                 return false;
             }
             else
@@ -500,15 +599,23 @@ namespace SimpleLoadOrderOrganizer
                 }
 
                 System.Windows.Forms.MessageBox.Show(
-                    $"Could not find {expectedFile}, please choose the correct directory.",
-                    "Error");
+                    string.Format(Resx.couldNotFindDirectory, expectedFile),
+                    $"{Resx.error}");
                 return false;
             }
         }
 
 
+
+
+
+        #endregion
+
+
+        #region WINDOW CONTROL
+
         //RENABLES WINDOW DRAG
-         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
             DragMove(); // allows dragging
@@ -539,7 +646,6 @@ namespace SimpleLoadOrderOrganizer
 
         #endregion
 
-      
     }
 
 }

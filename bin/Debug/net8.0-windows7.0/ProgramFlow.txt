@@ -1,0 +1,7 @@
+000000: Program Started
+000000: Computer Name: Hunter
+000000: Creating Windows
+000000: Begin loading of archive header and invalidation of archived files
+000000: Finished with header loading and invalidation
+000000: Initializing Main
+000000: Video adapter: NVIDIA GeForce RTX 4060 (32.0.15.8115)

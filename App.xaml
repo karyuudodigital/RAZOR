@@ -10,9 +10,15 @@
         <FontFamily x:Key="base">
             pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Inter
         </FontFamily>
+        <FontFamily x:Key="morrowind">
+            pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Magic Cards
+        </FontFamily>
+
+
+        
 
 
 
-    
+
     </Application.Resources>
 </Application>

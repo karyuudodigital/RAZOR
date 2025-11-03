@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:WindowChrome="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
-
+        xmlns:res="clr-namespace:SimpleLoadOrderOrganizer.Resources"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleLoadOrderOrganizer"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        MinHeight="350" MinWidth="400"
+        MinHeight="600" MinWidth="400"
         Title="RAZOR" Height="700" Width="789"  Loaded="Window_Loaded">
 
 
@@ -25,6 +25,11 @@
             <Setter Property="Background" Value="Transparent"/>
         </Style>
         <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
+        </Style>
+        <Style x:Key="TextblockStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontFamily" Value="{StaticResource base}"/>
 
@@ -106,26 +111,26 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ProgressBar">
-                       <Border 
+                        <Border 
                     x:Name="OuterBorder" 
                     Background="{TemplateBinding Background}" 
                     BorderBrush="{TemplateBinding BorderBrush}" 
                     BorderThickness="{TemplateBinding BorderThickness}" 
                     CornerRadius="5"
                     SnapsToDevicePixels="True">
-                    <Grid ClipToBounds="True">
-                        <Border 
+                            <Grid ClipToBounds="True">
+                                <Border 
                             x:Name="PART_Track" 
                             Background="{TemplateBinding Background}" 
                             CornerRadius="5"/>
-                        <Border 
+                                <Border 
                             x:Name="PART_Indicator" 
                             Background="{TemplateBinding Foreground}" 
                             HorizontalAlignment="Left" 
                             Width="0" 
                             CornerRadius="5"/>
-                    </Grid>
-                </Border>
+                            </Grid>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -140,6 +145,8 @@
             <Setter Property="BorderThickness" Value="0"/>
             <!-- left, top, right, bottom -->
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -182,6 +189,8 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -191,7 +200,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="5"
-                        Padding="0,0,0,3">
+                        Padding="0,0,0,1">
                             <ContentPresenter HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       RecognizesAccessKey="True"/>
@@ -272,11 +281,13 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="30"/>
 
-            <Setter Property="FontFamily" Value="pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Magic Cards"/>
+            <Setter Property="FontFamily" Value="{StaticResource morrowind}"/>
 
         </Style>
         <Style x:Key="CheckboxStyle" TargetType="CheckBox">
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -356,7 +367,8 @@
         <Style x:Key="GridHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="BorderBrush" Value="#66FFFFFF"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
@@ -643,13 +655,19 @@
 
 
         <Grid Style="{StaticResource BackgroundStyle}" Margin="0,-2,0,0">
+
+
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="185*"/>
-                <RowDefinition Height="312*"/>
+                <RowDefinition Height="589*"/>
+                <RowDefinition Height="26*"/>
             </Grid.RowDefinitions>
 
             <!-- Custom Title Bar -->
-            <Grid Background="black" Grid.Row="0" Margin="0,0,0,113">
+            <Grid Background="black" Grid.Row="0" Margin="0,0,0,315">
+
+
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
@@ -657,11 +675,16 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
+
+
                 <TextBlock Text="RAZOR" 
+                           FontFamily="{StaticResource morrowind}"
                            VerticalAlignment="Top" 
                            Margin="10,10,10,0"
                            Foreground="White"
                            FontWeight="Bold"/>
+
+
 
                 <!-- Minimize -->
                 <Button Grid.Column="1" Content="—" Width="40" Height="27"
@@ -681,16 +704,17 @@
 
 
 
+
             </Grid>
 
 
 
             <Border CornerRadius="10"
-        Background="#222222" Margin="10,96,10,307" Grid.RowSpan="2"
+        Background="#222222" Margin="10,36,10,0" Height="214" VerticalAlignment="Top"
         >
                 <Border CornerRadius="10"
      
-    BorderThickness="2" Margin="-2,-2,-2,-2"
+    BorderThickness="2" Margin="-2,-2,-2,-2" Height="218"
     >
 
                     <Border.Background>
@@ -702,10 +726,12 @@
 
                     <Grid Style="{StaticResource SectionStyle}" Height="196" VerticalAlignment="Center" Margin="10,0,10,0">
 
-                        <Label x:Name="gameFolderLabel" Style="{StaticResource LabelStyle}" Content="Folder" HorizontalAlignment="Left" Margin="7,57,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="pluginLabel" Style="{StaticResource LabelStyle}" Content="&#xD;&#xA;Config File" HorizontalAlignment="Left" Margin="7,82,0,0" VerticalAlignment="Top" Height="38"/>
-                        <TextBox x:Name="gameFolderBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding GameFolder, Mode=TwoWay}" Margin="99,54,10,0"  TextWrapping="Wrap" VerticalAlignment="Top" Height="27" ToolTip="Displays game directory"  PreviewMouseDown="gameFolderBox_PreviewMouseDown"/>
-                        <TextBox x:Name="pluginsTextBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding ConfigFolder, Mode=TwoWay}" Margin="99,98,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" ToolTip="Displays the directory for plugins.txt (or Morrowind.ini)" PreviewMouseDown="pluginsTextBox_PreviewMouseDown"/>
+
+
+                        <Label x:Name="gameFolderLabel" Style="{StaticResource LabelStyle}" Content="{x:Static res:Resources.folder}" HorizontalAlignment="Left" Margin="7,57,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="pluginLabel" Style="{StaticResource LabelStyle}" Content="{x:Static res:Resources.configFile}" HorizontalAlignment="Left" Margin="7,98,0,0" VerticalAlignment="Top" Height="61" FontSize="14"/>
+                        <TextBox x:Name="gameFolderBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding GameFolder, Mode=TwoWay}" Margin="99,54,10,0"  TextWrapping="Wrap" VerticalAlignment="Top" Height="27" ToolTip="Displays game directory"  PreviewMouseDown="GameFolderBox_PreviewMouseDown"/>
+                        <TextBox x:Name="pluginsTextBox" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Text="{Binding ConfigFolder, Mode=TwoWay}" Margin="99,98,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" ToolTip="Displays the directory for plugins.txt (or Morrowind.ini)" PreviewMouseDown="PluginsTextBox_PreviewMouseDown"/>
                         <ComboBox x:Name="game" Style="{StaticResource ComboBoxStyle}"  Margin="10,10,10,0" VerticalAlignment="Top" SelectedIndex="3" Height="27" >
                             <ComboBoxItem Content="The Elder Scrolls III: Morrowind"/>
                             <ComboBoxItem Content="The Elder Scrolls IV: Oblivion"/>
@@ -715,7 +741,7 @@
                             <ComboBoxItem Content="Fallout: New Vegas"/>
                             <ComboBoxItem Content="Fallout 4"/>
                         </ComboBox>
-                        <CheckBox Style="{StaticResource CheckboxStyle}" x:Name="editMasters" IsChecked="{Binding EditMaster, Mode=TwoWay}" Content="  Edit masters" HorizontalAlignment="Left" Margin="12,143,0,0" VerticalAlignment="Top" >
+                        <CheckBox Style="{StaticResource CheckboxStyle}" x:Name="editMasters" IsChecked="{Binding EditMaster, Mode=TwoWay}" Content="{x:Static res:Resources.editMasters}" HorizontalAlignment="Left" Margin="12,143,0,0" VerticalAlignment="Top" >
                             <CheckBox.ToolTip>
                                 <TextBlock>
               If checked, allows master plugins to be enabled/disabled
@@ -726,11 +752,14 @@
                                 </TextBlock>
                             </CheckBox.ToolTip>
                         </CheckBox>
-                        <CheckBox x:Name="conflictCheckBox" Style="{StaticResource CheckboxStyle}"  IsChecked="{Binding ConflictCheck, Mode=TwoWay}" Content="  Check for conflicts" HorizontalAlignment="Left" Margin="12,173,0,0" VerticalAlignment="Top" ToolTip="After initially loading plugins, program will check each plugin and display what other plugins overlap with it" Checked="ConflictCheckBox_Checked"/>
+                        <CheckBox x:Name="conflictCheckBox" Style="{StaticResource CheckboxStyle}"  IsChecked="{Binding ConflictCheck, Mode=TwoWay}" Content="{x:Static res:Resources.checkForConflicts}" HorizontalAlignment="Left" Margin="12,173,0,0" VerticalAlignment="Top" ToolTip="After initially loading plugins, program will check each plugin and display what other plugins overlap with it" Checked="ConflictCheckBox_Checked"/>
 
-                        <Label x:Name="warningLabel" Content="Please enter valid paths for the game folder and the plugin&#xD;&#xA;config file. The plugin config file is usually called &quot;plugins.txt&quot; &#xD;&#xA;and is located in the local folder in the AppData directory. &#xD;&#xA;(In Morrowind's case, active plugins are recorded in &#xD;&#xA;Morrowind.ini in the game directory)" Margin="0,211,0,0" Height="384" Width="763" RenderTransformOrigin="0.506,0.053" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Button x:Name="saveButton" Style="{StaticResource AnimatedButtonStyle}" Content="Save" HorizontalAlignment="Right" Margin="0,170,95,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="58" Height="22"/>
-                        <Button x:Name="playButton" Style="{StaticResource AnimatedButtonStyle}" Content="&#9654; Play" HorizontalAlignment="Right" Margin="0,170,10,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="59" Height="22"/>
+                        <Button x:Name="saveButton" Style="{StaticResource AnimatedButtonStyle}" Content="{x:Static res:Resources.save}" HorizontalAlignment="Right" Margin="0,170,95,0" VerticalAlignment="Top" Click="SaveButton_Click" Width="58" Height="22"/>
+                        <Button x:Name="playButton" Style="{StaticResource AnimatedButtonStyle}" Content="{x:Static res:Resources.play}" HorizontalAlignment="Right" Margin="0,170,10,4" Click="PlayButton_Click" Width="59"/>
+
+
+
+
 
 
 
@@ -741,7 +770,7 @@
             </Border>
 
             <Border CornerRadius="10"
-                    Background="#222222" Margin="10,102,10,47" Grid.Row="1"
+                    Background="#222222" Margin="10,271,10,10"
                     >
 
 
@@ -756,31 +785,45 @@
                     Stretch="UniformToFill"/>
                     </Border.Background>
 
-                    <ListView x:Name="pluginsBox" ItemContainerStyle="{StaticResource ListViewItemStyle}" Style="{StaticResource ListviewStyle}" ItemsSource="{Binding LoadOrder, Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="15,-2,15,0" Drop="PluginsBox_Drop" >
+                    <Grid>
 
-                        <ListView.Resources>
-                            <Style TargetType="ScrollBar" BasedOn="{StaticResource DarkScrollBar}"/>
-                        </ListView.Resources>
+                        <TextBlock x:Name="warningLabel" Style="{StaticResource TextblockStyle}" FontFamily="{StaticResource morrowind}"  TextWrapping="Wrap" RenderTransformOrigin="0.506,0.053" Visibility="Visible" Panel.ZIndex="-2" Margin="15,51,15,10" Text="{x:Static res:Resources.warning}" FontSize="14"></TextBlock>
 
-                        <ListView.View>
-                            <GridView  ColumnHeaderContainerStyle="{StaticResource GridHeader}">
-                                <GridViewColumn  Width="200" Header="Name" >
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel>
-                                                <CheckBox Content="{Binding PluginFilename}" IsChecked="{Binding IsActive}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
-                                                    <CheckBox.Style>
 
-                                                        <Style TargetType="CheckBox">
+                        <ListView x:Name="pluginsBox" ItemsSource="{Binding LoadOrder, Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="15,-2,15,0" Drop="PluginsBox_Drop" >
 
-                                                            <Setter Property="Foreground" Value="White"/>
-                                                            <Setter Property="FontSize" Value="14"/>
-                                                            <Setter Property="Template">
-                                                                <Setter.Value>
-                                                                    <ControlTemplate TargetType="CheckBox">
-                                                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                                            <!-- Custom checkbox box -->
-                                                                            <Border x:Name="Border"
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource DarkScrollBar}"/>
+                            </ListView.Resources>
+
+                            <ListView.ItemContainerStyle>
+                                <StaticResource ResourceKey="ListViewItemStyle"/>
+                            </ListView.ItemContainerStyle>
+                            <ListView.Style>
+                                <StaticResource ResourceKey="ListviewStyle"/>
+                            </ListView.Style>
+
+                            <ListView.View>
+                                <GridView  ColumnHeaderContainerStyle="{StaticResource GridHeader}">
+                                    <GridViewColumn  Width="200" Header="{x:Static res:Resources.name}" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <CheckBox Content="{Binding PluginFilename}" IsChecked="{Binding IsActive}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
+                                                        <CheckBox.Style>
+
+                                                            <Style TargetType="{x:Type CheckBox}">
+
+                                                                <Setter Property="Foreground" Value="White"/>
+                                                                <Setter Property="FontSize" Value="12"/>
+                                                                <Setter Property="FontFamily" Value="{StaticResource base}"/>
+
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                                                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                                                <!-- Custom checkbox box -->
+                                                                                <Border x:Name="Border"
                                                                                 Width="18" Height="18"
                                                                                 CornerRadius="4"
                                                                                 Background="#111111"
@@ -789,8 +832,8 @@
                                                                                     Opacity=".70"
                                                                                     Padding="1,2,0,0"
                                                                                 Margin="0,0,6,0">
-                                                                                <!-- The check mark -->
-                                                                                <Path x:Name="CheckMark"
+                                                                                    <!-- The check mark -->
+                                                                                    <Path x:Name="CheckMark"
                                                                                   Data="M2,6 L7,11 L14,3"
                                                                                   Stroke="White"
                                                                                   StrokeThickness="2"
@@ -798,96 +841,94 @@
                                                                                   StrokeEndLineCap="Round"
                                                                                   StrokeStartLineCap="Round"
                                                                                   Visibility="Collapsed"/>
-                                                                            </Border>
+                                                                                </Border>
 
-                                                                            <!-- The label text -->
-                                                                            <ContentPresenter VerticalAlignment="Center"
+                                                                                <!-- The label text -->
+                                                                                <ContentPresenter VerticalAlignment="Center"
                           RecognizesAccessKey="True"/>
-                                                                        </StackPanel>
+                                                                            </StackPanel>
 
-                                                                        <ControlTemplate.Triggers>
-                                                                            <!-- Checked -->
-                                                                            <Trigger Property="IsChecked" Value="True">
-                                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
-                                                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
-                                                                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
-                                                                            </Trigger>
+                                                                            <ControlTemplate.Triggers>
+                                                                                <!-- Checked -->
+                                                                                <Trigger Property="IsChecked" Value="True">
+                                                                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                                                                    <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                                                    <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                                                                                </Trigger>
 
-                                                                            <!-- Hover -->
-                                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                                <Setter TargetName="Border" Property="BorderBrush" Value="#66CCFF"/>
-                                                                            </Trigger>
+                                                                                <!-- Hover -->
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter TargetName="Border" Property="BorderBrush" Value="#66CCFF"/>
+                                                                                </Trigger>
 
-                                                                            <!-- Pressed -->
-                                                                            <Trigger Property="IsPressed" Value="True">
-                                                                                <Setter TargetName="Border" Property="Background" Value="#222"/>
-                                                                            </Trigger>
+                                                                                <!-- Pressed -->
+                                                                                <Trigger Property="IsPressed" Value="True">
+                                                                                    <Setter TargetName="Border" Property="Background" Value="#222"/>
+                                                                                </Trigger>
 
-                                                                            <!-- Disabled -->
-                                                                            <Trigger Property="IsEnabled" Value="False">
-                                                                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
-                                                                                <Setter Property="Foreground" Value="#777"/>
-                                                                            </Trigger>
-                                                                        </ControlTemplate.Triggers>
-                                                                    </ControlTemplate>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                            <Setter Property="Margin" Value="15,15"/>
+                                                                                <!-- Disabled -->
+                                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                                    <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                                                                                    <Setter Property="Foreground" Value="#777"/>
+                                                                                </Trigger>
+                                                                            </ControlTemplate.Triggers>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <Setter Property="Margin" Value="15,15"/>
 
-                                                            <Setter Property="Foreground" Value="White"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding IsMaster}" Value="True">
-                                                                    <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=editMasters}"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </CheckBox.Style>
-                                                </CheckBox>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding IsMaster}" Header="Master" Width="50"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding IsLight}" Header="Light Plugin" Width="75"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding OverrideRecords}" Header="Override Records" Width="100"/>
-                                <GridViewColumn  Header="Masters" Width="100" >
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel>
-                                                <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
-                                                    <TextBlock Text="{Binding MastersString}" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn  Header="Conflicts" Width="105" >
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel>
-                                                <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
-                                                    <TextBlock Text="{Binding Conflicts}" />
-                                                </ScrollViewer>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                                                                <Setter Property="Foreground" Value="White"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsMaster}" Value="True">
+                                                                        <Setter Property="IsEnabled" Value="{Binding IsChecked, ElementName=editMasters}"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </CheckBox.Style>
+                                                    </CheckBox>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding IsMaster}" Header="{x:Static res:Resources.master}" Width="50"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding IsLight}" Header="{x:Static res:Resources.lightPlugin}" Width="75"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding OverrideRecords}" Header="{x:Static res:Resources.overrideRecords}" Width="100"/>
+                                    <GridViewColumn  Header="{x:Static res:Resources.masters}" Width="100" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                        <TextBlock Text="{Binding MastersString}" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn  Header="{x:Static res:Resources.conflicts}" Width="105" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <ScrollViewer Height="50"  HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Hidden">
+                                                        <TextBlock Text="{Binding Conflicts}" />
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
 
-                            </GridView>
-                        </ListView.View>
+                                </GridView>
+                            </ListView.View>
 
-                    </ListView>
+                        </ListView>
 
-
+                    </Grid>
                 </Border>
 
             </Border>
 
-            <Label x:Name="Banner" Style="{StaticResource BannerStyle}" Content="The-Elder-Scrolls-III:-Morrowind" HorizontalAlignment="Center" Margin="0,31,0,0" Width="451"  VerticalAlignment="Top" />
 
-
-            <Label x:Name="progressLabel" Style="{StaticResource LabelStyle}" Content="© 2025 KARYUUDO DIGITAL" HorizontalAlignment="Left" Margin="10,0,0,8" Width="343"  VerticalAlignment="Bottom" Grid.Row="1" />
-            <ProgressBar Style="{StaticResource ProgressBarStyle}" Minimum="0" Maximum="1.0" x:Name="loadingBar" Margin="182,0,10,5"  VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Grid.Row="1" >
+            <Label x:Name="progressLabel" Style="{StaticResource LabelStyle}" FontFamily="{StaticResource morrowind}" Content="©-2025-KARYUUDO-DIGITAL" HorizontalAlignment="Left" Margin="10,0,0,0" Width="343"  VerticalAlignment="Center" Grid.Row="1" Height="25" />
+            <ProgressBar Style="{StaticResource ProgressBarStyle}" Minimum="0" Maximum="1.0" x:Name="loadingBar" Margin="182,0,10,0"  VerticalAlignment="Center" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" Grid.Row="1" >
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1"/>
@@ -897,6 +938,9 @@
                     </TransformGroup>
                 </ProgressBar.RenderTransform>
             </ProgressBar>
+
+
+
 
 
         </Grid>

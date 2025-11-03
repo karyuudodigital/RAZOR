@@ -86,6 +86,12 @@ namespace SimpleLoadOrderOrganizer
         [DataMember(Name = "Config Folder")]
         public string? ConfigFolder { get; set; }
 
+        [DataMember(Name = "Exe Path")]
+        public string? ExePath { get; set; }
+
+        [DataMember(Name = "Script Extender")]
+        public string? ScriptExtender { get; set; }
+
         [DataMember(Name = "Default Config Folder")]
         public string? DefaultConfigFolder { get; set; }
 
@@ -117,6 +123,9 @@ namespace SimpleLoadOrderOrganizer
             get => _editMaster;
             set => SetField(ref _editMaster, value);
         }
+
+
+       
 
         // INotifyPropertyChanged 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -580,13 +589,14 @@ namespace SimpleLoadOrderOrganizer
 
         public Games()
         {
-            gamesList.Add(new Game { Name = "The Elder Scrolls III: Morrowind", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Morrowind", DefaultConfigFolder = "\\Morrowind.ini", Id = GameIDs.Morrowind, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Morrowind.esm"] });
-            gamesList.Add(new Game { Name = "The Elder Scrolls IV: Oblivion", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Oblivion", DefaultConfigFolder = "\\AppData\\Local\\Oblivion\\Plugins.txt", Id = GameIDs.Oblivion, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Oblivion.esm"] });
-            gamesList.Add(new Game { Name = "The Elder Scrolls V: Skyrim", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim", DefaultConfigFolder = "\\AppData\\Local\\Skyrim\\plugins.txt", Id = GameIDs.Skyrim, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Skyrim.esm", "Update.esm"] });
-            gamesList.Add(new Game { Name = "The Elder Scrolls V: Skyrim – Special Edition", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim Special Edition", DefaultConfigFolder = "\\AppData\\Local\\Skyrim Special Edition\\Plugins.txt", Id = GameIDs.SkyrimSE, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "Dragonborn.esm", "HearthFires.esm"] });
-            gamesList.Add(new Game { Name = "Fallout 3", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Fallout3", DefaultConfigFolder = "\\AppData\\Local\\Fallout3\\plugins.txt", Id = GameIDs.Fallout3, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Fallout3.esm"] });
-            gamesList.Add(new Game { Name = "Fallout: New Vegas", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\falloutnv", DefaultConfigFolder = "\\AppData\\Local\\FalloutNV\\plugins.txt", Id = GameIDs.FalloutNV, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["FalloutNV.esm"] });
-            gamesList.Add(new Game { Name = "Fallout 4", ConfigFolder = "", GameFolder = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Fallout4", DefaultConfigFolder = "\\AppData\\Local\\Fallout4\\Plugins.txt", Id = GameIDs.Fallout4, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Fallout4.esm", "DLCRobot.esm", "DLCworkshop01.esm", "DLCCoast.esm", "DLCworkshop02.esm", "DLCworkshop03.esm", "DLCNukaWorld.esm"] });
+
+            gamesList.Add(new Game { Name = "The Elder Scrolls III: Morrowind", ConfigFolder = "", GameFolder = "", ScriptExtender = "", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Morrowind", DefaultConfigFolder = "\\Morrowind.ini", Id = GameIDs.Morrowind, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Morrowind.esm"], ExePath = "Morrowind.exe" }); 
+            gamesList.Add(new Game { Name = "The Elder Scrolls IV: Oblivion", ConfigFolder = "", GameFolder = "", ScriptExtender = "obse_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Oblivion", DefaultConfigFolder = "\\AppData\\Local\\Oblivion\\Plugins.txt", Id = GameIDs.Oblivion, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Oblivion.esm"], ExePath = "Oblivion.exe" });
+            gamesList.Add(new Game { Name = "The Elder Scrolls V: Skyrim", ConfigFolder = "", GameFolder = "", ScriptExtender = "skse_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim", DefaultConfigFolder = "\\AppData\\Local\\Skyrim\\plugins.txt", Id = GameIDs.Skyrim, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Skyrim.esm", "Update.esm"], ExePath = "TESV.exe" });
+            gamesList.Add(new Game { Name = "The Elder Scrolls V: Skyrim – Special Edition", ConfigFolder = "", GameFolder = "", ScriptExtender = "skse64_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Skyrim Special Edition", DefaultConfigFolder = "\\AppData\\Local\\Skyrim Special Edition\\Plugins.txt", Id = GameIDs.SkyrimSE, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "Dragonborn.esm", "HearthFires.esm"], ExePath = "SkyrimSE.exe" });
+            gamesList.Add(new Game { Name = "Fallout 3", ConfigFolder = "", GameFolder = "", ScriptExtender = "fose_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Fallout3", DefaultConfigFolder = "\\AppData\\Local\\Fallout3\\plugins.txt", Id = GameIDs.Fallout3, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Fallout3.esm"], ExePath = "Fallout3.exe" });
+            gamesList.Add(new Game { Name = "Fallout: New Vegas", ConfigFolder = "", GameFolder = "", ScriptExtender = "nvse_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\falloutnv", DefaultConfigFolder = "\\AppData\\Local\\FalloutNV\\plugins.txt", Id = GameIDs.FalloutNV, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["FalloutNV.esm"], ExePath = "FalloutNV.exe" });
+            gamesList.Add(new Game { Name = "Fallout 4", ConfigFolder = "", GameFolder = "", ScriptExtender = "f4se_loader.exe", RegKey = "SOFTWARE\\WOW6432Node\\Bethesda Softworks\\Fallout4", DefaultConfigFolder = "\\AppData\\Local\\Fallout4\\Plugins.txt", Id = GameIDs.Fallout4, EditMaster = false, ConflictCheck = false, MandatoryFiles = ["Fallout4.esm", "DLCRobot.esm", "DLCworkshop01.esm", "DLCCoast.esm", "DLCworkshop02.esm", "DLCworkshop03.esm", "DLCNukaWorld.esm"], ExePath = "Fallout4.exe" });
             GameID = (int)GameIDs.SkyrimSE;
 
         }
