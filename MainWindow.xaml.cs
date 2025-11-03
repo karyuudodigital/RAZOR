@@ -82,9 +82,7 @@ namespace SimpleLoadOrderOrganizer
         bool conflictCheckLock = false; //prevents conflictCheck from running on combobox change
 
 
-        public MainWindow(){
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja-JP");  InitializeComponent(); 
-        }
+        public MainWindow(){  InitializeComponent();  }
 
         #endregion
 
