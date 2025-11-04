@@ -259,7 +259,7 @@ namespace SimpleLoadOrderOrganizer
 
 
         //WHEN COMBOBOX INDEX CHANGES
-        public async void Game_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void Game_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             conflictCheckLock = true;
             RefreshDataContext(game.SelectedIndex);
@@ -333,6 +333,7 @@ namespace SimpleLoadOrderOrganizer
             else
             {
                 SetUIEnabled(true);
+               
             }
         }
 
@@ -533,6 +534,7 @@ namespace SimpleLoadOrderOrganizer
             }
 
             loadingBar.Visibility = enabled ? Visibility.Hidden : Visibility.Visible;
+            conflictCheckLock = false;
             progressLabel.Content = enabled ? "©-2025-KARYUUDO-DIGITAL" : progressMsg;
         }
 
