@@ -18,6 +18,9 @@
     <Window.Resources>
 
 
+        <local:GameIndexToImageConverter x:Key="GameIndexToImageConverter"/>
+
+
         <Style x:Key="BackgroundStyle" TargetType="Grid">
             <Setter Property="Background" Value="Black"/>
         </Style>
@@ -719,8 +722,11 @@
 
                     <Border.Background>
                         <!-- Faded background image -->
-                        <ImageBrush ImageSource="/assets/images/top.png" 
-                        Opacity="1"
+                        <ImageBrush 
+ImageSource="{Binding ElementName=game, Path=SelectedIndex, 
+                          Converter={StaticResource GameIndexToImageConverter}, 
+                          ConverterParameter=top.png}"                        
+                            Opacity="1"
                         Stretch="UniformToFill"/>
                     </Border.Background>
 
@@ -780,8 +786,10 @@
 
                     <Border.Background>
                         <!-- Faded background image -->
-                        <ImageBrush ImageSource="/assets/images/skyrimList.png" 
-                    Opacity="1"
+                        <ImageBrush  ImageSource="{Binding ElementName=game, Path=SelectedIndex, 
+                          Converter={StaticResource GameIndexToImageConverter}, 
+                          ConverterParameter=list.png}"                    
+                        Opacity="1"
                     Stretch="UniformToFill"/>
                     </Border.Background>
 

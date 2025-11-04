@@ -1,2 +1,0 @@
-Font 0 not found in .\Morrowind.ini.
-Current path: C:\Users\Hunter\Documents\GitHub\RAZOR\bin\Debug\net8.0-windows7.0.

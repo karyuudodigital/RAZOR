@@ -271,7 +271,7 @@ namespace SimpleLoadOrderOrganizer
                 IsValidGame(game.SelectedIndex))
             {
                 index = game.SelectedIndex;
-                await LoadPluginsAsync();
+                LoadPlugins();
             }
             //IF GAME IS VALID, SET DATACONTEXT
             else if (IsValidGame(game.SelectedIndex))
@@ -564,7 +564,7 @@ namespace SimpleLoadOrderOrganizer
                 {
                     FileName = "Config file",
                     DefaultExt = ".txt",
-                    Filter = "Text documents (*.txt;*.ini)|*.txt;*.ini"
+                    Filter = "Text documents (*.txt;*.ini;*.cfg)|*.txt;*.ini;*.cfg"
                 };
 
                 bool? result = dialog.ShowDialog();

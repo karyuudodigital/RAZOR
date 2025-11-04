@@ -172,7 +172,7 @@
     <value>レコードの上書き</value>
   </data>
   <data name="play" xml:space="preserve">
-    <value>プレイ</value>
+    <value>▶ プレイ</value>
   </data>
   <data name="pluginConfigError" xml:space="preserve">
     <value>プラグイン設定ファイル（plugins.txt など）への正しいパスを入力してください。</value>

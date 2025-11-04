@@ -241,7 +241,7 @@ namespace SimpleLoadOrderOrganizer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;#9654; Play.
+        ///   Looks up a localized string similar to ▶ Play.
         /// </summary>
         public static string play {
             get {

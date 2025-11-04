@@ -172,7 +172,7 @@
     <value>Override records</value>
   </data>
   <data name="play" xml:space="preserve">
-    <value>&amp;#9654; Play</value>
+    <value>▶ Play</value>
   </data>
   <data name="pluginConfigError" xml:space="preserve">
     <value>Please enter a valid path for the plugin config file.</value>

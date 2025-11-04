@@ -19,6 +19,20 @@
     <None Remove="assets\fonts\TrajanusBricks.ttf" />
     <None Remove="assets\fonts\TrajanusBricksXtra.ttf" />
     <None Remove="assets\fonts\TrajanusBriX-Invers.ttf" />
+    <None Remove="assets\images\0\list.png" />
+    <None Remove="assets\images\0\top.png" />
+    <None Remove="assets\images\1\list.png" />
+    <None Remove="assets\images\1\top.png" />
+    <None Remove="assets\images\2\list.png" />
+    <None Remove="assets\images\2\top.png" />
+    <None Remove="assets\images\3\list.png" />
+    <None Remove="assets\images\3\top.png" />
+    <None Remove="assets\images\4\list.png" />
+    <None Remove="assets\images\4\top.png" />
+    <None Remove="assets\images\5\list.png" />
+    <None Remove="assets\images\5\top.png" />
+    <None Remove="assets\images\6\list.png" />
+    <None Remove="assets\images\6\top.png" />
     <None Remove="assets\images\skyrimList.png" />
     <None Remove="assets\images\top.png" />
   </ItemGroup>
@@ -39,10 +53,20 @@
     <Resource Include="assets\fonts\MagicCardsNormal.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="assets\images\skyrimList.png" />
-    <Resource Include="assets\images\top.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="assets\images\0\list.png" />
+    <Resource Include="assets\images\0\top.png" />
+    <Resource Include="assets\images\1\list.png" />
+    <Resource Include="assets\images\1\top.png" />
+    <Resource Include="assets\images\2\list.png" />
+    <Resource Include="assets\images\2\top.png" />
+    <Resource Include="assets\images\3\list.png" />
+    <Resource Include="assets\images\3\top.png" />
+    <Resource Include="assets\images\4\list.png" />
+    <Resource Include="assets\images\4\top.png" />
+    <Resource Include="assets\images\5\list.png" />
+    <Resource Include="assets\images\5\top.png" />
+    <Resource Include="assets\images\6\list.png" />
+    <Resource Include="assets\images\6\top.png" />
   </ItemGroup>
 
   <ItemGroup>
