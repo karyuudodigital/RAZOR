@@ -229,7 +229,7 @@ namespace SimpleLoadOrderOrganizer
                 try
                 {
                     //checks all files that are required for loading
-                    if (this.MandatoryFiles.Contains(file.Name) || (file.Name.Contains("_ResourcePack") && this.Id == Games.GameIDs.SkyrimSE) || CreationClubCheck1().IsMatch(file.Name) || CreationClubCheck2().IsMatch(file.Name)) { tempPlugin.IsActive = true; }
+                    if (this.MandatoryFiles.Contains(file.Name) || (file.Name.Contains("_ResourcePack") && this.Id == Games.GameIDs.SkyrimSE) || CreationClubCheck1().IsMatch(file.Name) || CreationClubCheck2().IsMatch(file.Name)) { tempPlugin.IsActive = true; tempPlugin.IsReq = true;}
 
                     //Morrowind use's Morrowind.ini instead of plugins.txt so we have to acocunt for that
                     if (this.Id == Games.GameIDs.Morrowind)
@@ -249,16 +249,26 @@ namespace SimpleLoadOrderOrganizer
                     else if (this.Id == Games.GameIDs.SkyrimSE || this.Id == Games.GameIDs.Fallout4)
                     {
                         string tempLine = "";
+
                         //for every line
                         foreach (var line in lines)
                         {
                             //gets rid of plugin prefix
                             if (line[0] == '*') { tempLine = line[(line.IndexOf('*') + 1)..]; }
+                            else { tempLine = line; }
 
-                            //sets checkbox to checked if plugin is active (ie: if plugin name was found in plugins.txt/Morrowind.ini)
-                            if (file.Name == tempLine && line[0] == '*') { tempPlugin.IsActive = true; }
+                            if (file.Name == tempLine)
+                            {
+                                tempPlugin.FoundInLoadOrder = true;
+                                //sets checkbox to checked if plugin is active (ie: if plugin name was found in plugins.txt/Morrowind.ini)
+                                if (line[0] == '*') { tempPlugin.IsActive = true; }
+
+                            }
 
                         }
+
+                        
+
                     }
                     else
                     {
@@ -354,7 +364,7 @@ namespace SimpleLoadOrderOrganizer
                     .ToList();
 
                 var otherPlugins = LoadOrder
-                    .Where(p => !coreOrder.Contains(p.PluginFilename!, StringComparer.OrdinalIgnoreCase)).Reverse()
+                    .Where(p => !coreOrder.Contains(p.PluginFilename!, StringComparer.OrdinalIgnoreCase)).OrderBy(p => p.FoundInLoadOrder).OrderBy(p => p.IsReq).OrderBy(p => p.IsMaster).Reverse()
                     .ToList();
 
                 // For certain games, sort *only* other plugins by DateModified (the old behavior)

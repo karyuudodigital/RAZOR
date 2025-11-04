@@ -161,6 +161,13 @@ namespace SimpleLoadOrderOrganizer
         public string? FilePath { get; set; }
 
 
+        // Runtime: whether plugin is in folder but not found in load order
+        public bool FoundInLoadOrder { get; set; } = false;
+
+        // Runtime: whether plugin is required
+        public bool IsReq { get; set; } = false;
+
+
         // Runtime: whether plugin is enabled (persisted separately via game config files)
         public bool IsActive { get; set; }
 
@@ -196,6 +203,7 @@ namespace SimpleLoadOrderOrganizer
             this.IsLight = false;
             this.OverrideRecords = 400;
             this.PluginFilename = "testing";
+            PluginJson = new PluginHandle();
         }
 
         public Plugin(string path, Int32 game) {
