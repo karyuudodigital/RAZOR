@@ -1,10 +1,9 @@
-# TESLOR - The Elder Scrolls Load Order Reorganizer
-![Screenshot 2023-09-05 015833](https://github.com/george0815/TESLOR/assets/20736715/de66b373-8234-4755-af42-9ab573101a54)
+# RAZOR - An Elder Scrolls load order manager
+![Screenshot 2023-09-05 015833](https://github.com/user-attachments/assets/b0871165-a70d-4ca5-b5c5-4c298b52c00a)
 
 
 
-
-Extremely simple load order editor for mainline Bethesda games. Users can see their load order, reorder it, see mods' master files, see how many records mods overwrite, and check which mods conflict with each other. 
+Load order editor for mainline Bethesda games, based on [TESLOR](https://github.com/george0815/TESLOR) by George S.. Just as in the original application, users can see their load order, reorder it, see mods' master files, see how many records mods overwrite, and check which mods conflict with each other. Additionally, users can launch each game via the default exe or script extender if they have one installed. 
 
 ### Games supported:
 Morrowind <br/>
