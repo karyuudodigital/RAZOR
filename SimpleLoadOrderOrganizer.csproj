@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="testmods\**" />
+    <EmbeddedResource Remove="testmods\**" />
+    <None Remove="testmods\**" />
+    <Page Remove="testmods\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="assets\fonts\Inter.ttc" />
     <None Remove="assets\fonts\InterVariable.ttf" />
     <None Remove="assets\fonts\Kingthings Petrock light.ttf" />
