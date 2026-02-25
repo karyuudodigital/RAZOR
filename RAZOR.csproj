@@ -1,14 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ApplicationIcon>icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<GenerateAppInstallerFile>false</GenerateAppInstallerFile>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AssemblyName>RAZOR</AssemblyName>
+		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+		<SelfContained>true</SelfContained>
+		<UseAppHost>true</UseAppHost>
+		<Platforms>AnyCPU;x64</Platforms>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="testmods\**" />
