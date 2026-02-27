@@ -96,7 +96,7 @@
     <EmbeddedResource Update="Resources\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>SimpleLoadOrderOrganizer.Resources</CustomToolNamespace>
+      <CustomToolNamespace>RAZOR.Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

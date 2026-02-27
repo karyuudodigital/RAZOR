@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleLoadOrderOrganizer.Resources {
+namespace RAZOR.Resources {
     using System;
     
     

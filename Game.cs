@@ -58,7 +58,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 
-namespace SimpleLoadOrderOrganizer
+namespace RAZOR
 {
 
     /// <summary>

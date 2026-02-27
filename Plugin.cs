@@ -51,7 +51,7 @@ using System.Text;
 using System.Windows.Forms;
 
 
-namespace SimpleLoadOrderOrganizer
+namespace RAZOR
 {
     /// <summary>
     /// Declares P/Invoke signatures for the native Rust/C library `esplugin`.

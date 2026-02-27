@@ -47,13 +47,13 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Resx = SimpleLoadOrderOrganizer.Resources.Resources;
+using Resx = RAZOR.Resources.Resources;
 
 
-namespace SimpleLoadOrderOrganizer
+namespace RAZOR
 {
     /// <summary>
-    /// MainWindow is the primary WPF window for TESLOR (SimpleLoadOrderOrganizer).
+    /// MainWindow is the primary WPF window for TESLOR (RAZOR).
     /// 
     /// Responsibilities:
     /// - Manages the main user interface for plugin load order organization.

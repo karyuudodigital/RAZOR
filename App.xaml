@@ -1,17 +1,17 @@
-﻿<Application x:Class="SimpleLoadOrderOrganizer.App"
+﻿<Application x:Class="RAZOR.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SimpleLoadOrderOrganizer"
+             xmlns:local="clr-namespace:RAZOR"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
 
         <!-- Embedded font references -->
         <FontFamily x:Key="base">
-            pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Inter
+            pack://application:,,,/RAZOR;component/assets/fonts/#Inter
         </FontFamily>
         <FontFamily x:Key="morrowind">
-            pack://application:,,,/SimpleLoadOrderOrganizer;component/assets/fonts/#Magic Cards
+            pack://application:,,,/RAZOR;component/assets/fonts/#Magic Cards
         </FontFamily>
 
 
