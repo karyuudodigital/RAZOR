@@ -80,9 +80,17 @@ namespace RAZOR
         private readonly DataContractJsonSerializer serializer = new(typeof(Games)); // For JSON serialization of config
         int index; // Currently selected game index
         bool conflictCheckLock = false; //prevents conflictCheck from running on combobox change
+        private readonly string cfgPath;
+        private readonly string baseCfgDir =
+    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RAZOR");
 
+        public MainWindow(){  
+            
+            InitializeComponent();
+            //Initialize paths
+            cfgPath = Path.Combine(baseCfgDir, "cfg.json");
 
-        public MainWindow(){  InitializeComponent();  }
+        }
 
         #endregion
 
@@ -96,9 +104,9 @@ namespace RAZOR
             #region CONFIG CHECK
 
             //if config file exist, read it
-            if (System.IO.File.Exists("cfg.json"))
+            if (System.IO.File.Exists(cfgPath))
             {
-                using var fs = File.OpenRead("cfg.json");
+                using var fs = File.OpenRead(cfgPath);
 
                 //try to read it, if it fails, display a message box and recreate config file
                 try
@@ -111,7 +119,7 @@ namespace RAZOR
                 {
                     System.Windows.Forms.MessageBox.Show($"{Resx.fileError}", $"{Resx.error}");
                     fs?.Close();
-                    System.IO.File.Delete("cfg.json");
+                    System.IO.File.Delete(cfgPath);
                     games = new Games();
                     index = games.GameID;
                     SaveConfig();
@@ -230,7 +238,9 @@ namespace RAZOR
             //Tries to save config by serializing the class into JSON, displays messagebox is there is an exception
             try
             {
-                using var fs = File.Create("cfg.json");
+                Directory.CreateDirectory(baseCfgDir);
+
+                using var fs = File.Create(cfgPath);
                 serializer.WriteObject(fs, games);
             }
             catch (Exception) { System.Windows.Forms.MessageBox.Show($"{Resx.saveError}", $"{Resx.error}"); }
@@ -419,7 +429,7 @@ namespace RAZOR
         //SAVE BUTTON
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            System.IO.File.Delete("cfg.json");
+            System.IO.File.Delete(cfgPath);
             SaveConfig();
 
             MessageBoxResult dialogResult = System.Windows.MessageBox.Show($"{Resx.saveDialogue}", $"{Resx.save}", MessageBoxButton.YesNo);
