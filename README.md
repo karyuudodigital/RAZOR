@@ -39,3 +39,7 @@ will always be loaded in a certain order, so changing the load order of DLCs wil
 ## Acknowledgements
 
 - [esplugin](https://github.com/Ortham/esplugin): Library for reading esm, esl, and esp files.
+
+
+
+KARYUUDO DIGITAL © 2025-2026
